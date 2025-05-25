@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const regions = [
   { label: 'Global', query: 'markets' },
@@ -18,7 +19,7 @@ export default function FinancialNews() {
     setLoading(true);
     try {
       const response = await fetch(
-        `https://newsdata.io/api/1/news?apikey=pub_53c6246525d14c249783abe5d2bdafdd&q=${encodeURIComponent(query)}&language=en`
+        `https://newsdata.io/api/1/news?apikey=${import.meta.env.VITE_NEWSDATA_API_KEY}&q=${encodeURIComponent(query)}&language=en`
       );
       const data = await response.json();
       const uniqueArticles = [];
@@ -74,6 +75,12 @@ export default function FinancialNews() {
                 {region.label}
               </button>
             ))}
+            <Link
+              to="/articles"
+              className="ml-4 px-3 py-1 bg-white text-teal-600 rounded-full text-sm font-medium hover:bg-teal-100"
+            >
+              Articles
+            </Link>
           </nav>
         </div>
       </header>
